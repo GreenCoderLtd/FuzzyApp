@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">FuzzyApp</string>
+    <string name="all">All</string>
+    <string name="text">Text</string>
+    <string name="image">Images</string>
+
+    <string name="title_activity_image_view">ImageViewActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
