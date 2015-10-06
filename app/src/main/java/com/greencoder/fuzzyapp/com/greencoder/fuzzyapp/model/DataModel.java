@@ -10,7 +10,7 @@ public class DataModel {
     private String type;
     private String date;
     private String data;
-    private int maxCharAllowed=20;
+    private int maxCharAllowed=40;
 
 
     /**
@@ -87,11 +87,15 @@ public class DataModel {
 
     public String getSummary()
     {
-        int totalChar=data.length();
+        if(data!=null) {
+            int totalChar = data.length();
 
-        int summaryLenght = (totalChar>maxCharAllowed)?maxCharAllowed:totalChar;
+            int summaryLenght = (totalChar > maxCharAllowed) ? maxCharAllowed : totalChar;
 
-        return data.substring(0,summaryLenght)+"..";
+            return data.substring(0, summaryLenght) + "..";
+        }
+
+        return "";
     }
 
 }

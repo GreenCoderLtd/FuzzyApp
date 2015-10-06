@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         ButterKnife.bind(this);
 
+        listView.setOnItemClickListener(this);
+
         if(isConnected())
         fetchData();
     }
