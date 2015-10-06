@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.greencoder.fuzzyapp.com.greencoder.fuzzyapp.model.DataModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -48,9 +49,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         listView.setOnItemClickListener(this);
 
+        listView.setTextFilterEnabled(true);
+
         if(isConnected())
         fetchData();
     }
+
+    public List<DataModel> processData(DataModel []allData)
+    {
+
+        List<DataModel> list=new ArrayList<DataModel>();
+
+        for(DataModel dm:allData)
+        {
+            list.add(dm);
+        }
+
+        return list;
+    }
+
 
     public void fetchData()
     {
@@ -64,8 +81,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                         DataModel []allData=new Gson().fromJson(response,DataModel[].class);
 
+                        List<DataModel> list=processData(allData);
 
-                        dataAdapter=new DataAdapter(MainActivity.this,R.layout.list_item_text,allData);
+                        dataAdapter=new DataAdapter(MainActivity.this,R.layout.list_item_text,list);
 
                         listView.setAdapter(dataAdapter);
 
@@ -101,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Intent intent=DataFactory.getIntentfromData(this,dataAdapter.getItem((int)id));
 
+        if(intent!=null)
         startActivity(intent);
 
     }
@@ -141,14 +160,32 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         if (id == R.id.menu_all)
         {
+            dataAdapter.getFilter().filter(DataFactory.DATA_TYPE_ALL);
+
+            dataAdapter.notifyDataSetChanged();
+
+            listView.invalidate();
+
             return true;
         }
         else if(id==R.id.menu_text)
         {
+            dataAdapter.getFilter().filter(DataFactory.DATA_TYPE_TEXT);
+
+            dataAdapter.notifyDataSetChanged();
+
+            listView.invalidate();
+
             return true;
         }
         else if(id==R.id.menu_image)
         {
+            dataAdapter.getFilter().filter(DataFactory.DATA_TYPE_IMAGE);
+
+            dataAdapter.notifyDataSetChanged();
+
+            listView.invalidate();
+
             return true;
         }
 

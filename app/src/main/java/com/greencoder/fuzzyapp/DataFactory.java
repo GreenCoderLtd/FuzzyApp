@@ -17,20 +17,27 @@ public class DataFactory {
 
     public static int TYPE_TEXT=0;
     public static int TYPE_IMAGE=1;
+    public static String DATA_TYPE_TEXT="text";
+    public static String DATA_TYPE_IMAGE="image";
+    public static String DATA_TYPE_ALL="";
 
     public static Intent getIntentfromData(Context context, DataModel data)
     {
-        if(data.getType().equals("text"))
+        if(data.getType().equals(DATA_TYPE_TEXT))
         {
             return new Intent(Intent.ACTION_VIEW, Uri.parse("https://fuzzproductions.com/"));
         }
-        else
+        else if(data.getType().equals(DATA_TYPE_IMAGE))
         {
             Intent intent=new Intent(context,ImageViewActivity.class);
             intent.putExtra(ImageViewActivity.EXTRA_IMAGE_URL,data.getData());
 
             return  intent;
 
+        }
+        else
+        {
+            return null;
         }
     }
 

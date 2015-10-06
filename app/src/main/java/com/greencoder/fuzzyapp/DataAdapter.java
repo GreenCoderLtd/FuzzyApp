@@ -7,9 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.greencoder.fuzzyapp.com.greencoder.fuzzyapp.model.DataModel;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,10 +24,10 @@ public class DataAdapter extends ArrayAdapter<DataModel> {
 
     LayoutInflater inflater;
     int layout_resource;
-    DataModel []allData;
+    List<DataModel> allData;
     Context context;
 
-    public DataAdapter(Context context, int resource, DataModel[] objects) {
+    public DataAdapter(Context context, int resource, List<DataModel> objects) {
         super(context, resource, objects);
 
         inflater = ((Activity)context).getLayoutInflater();
@@ -48,7 +51,7 @@ public class DataAdapter extends ArrayAdapter<DataModel> {
     public int getItemViewType(int position) {
 
 
-        return DataFactory.getTypefromData(allData[position]);
+        return DataFactory.getTypefromData(allData.get(position));
     }
 
     @Override
@@ -64,7 +67,7 @@ public class DataAdapter extends ArrayAdapter<DataModel> {
 
         int view_type=getItemViewType(position);
 
-        int layout=DataFactory.getLayoutfromData(allData[position]);
+        int layout=DataFactory.getLayoutfromData(allData.get(position));
 
         if(convertView==null)
         {
@@ -83,7 +86,7 @@ public class DataAdapter extends ArrayAdapter<DataModel> {
         }
 
 
-        DataFactory.processViewHolder(holder,view_type,context,allData[position]);
+        DataFactory.processViewHolder(holder,view_type,context,allData.get(position));
 
 
         return convertView;

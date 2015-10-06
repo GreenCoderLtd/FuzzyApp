@@ -8,8 +8,8 @@ public class DataModel {
 
     private String id;
     private String type;
-    private String date;
-    private String data;
+    private String date="";
+    private String data="";
     private int maxCharAllowed=40;
 
 
@@ -98,5 +98,9 @@ public class DataModel {
         return "";
     }
 
+    @Override
+    public String toString() {
+        return type;
+    }
 }
 
