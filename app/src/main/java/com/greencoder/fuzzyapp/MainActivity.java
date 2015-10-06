@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     RequestQueue requestQueue;
     private ArrayAdapter<DataModel> dataAdapter;
     @Bind(R.id.list_view)ListView listView;
+    List<DataModel> list;
+    List<DataModel> textList;
+    List<DataModel> imageList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +82,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public void onResponse(String response) {
 
-                        DataModel []allData=new Gson().fromJson(response,DataModel[].class);
+                        DataModel []allData=new Gson().fromJson(response, DataModel[].class);
 
-                        List<DataModel> list=processData(allData);
+                        list=processData(allData);
 
                         dataAdapter=new DataAdapter(MainActivity.this,R.layout.list_item_text,list);
 
@@ -154,6 +157,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        if(!isConnected())
+            return false;
+
         int id = item.getItemId();
 
         item.setChecked(true);
@@ -162,29 +168,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         {
             dataAdapter.getFilter().filter(DataFactory.DATA_TYPE_ALL);
 
-            dataAdapter.notifyDataSetChanged();
-
-            listView.invalidate();
-
             return true;
         }
         else if(id==R.id.menu_text)
         {
             dataAdapter.getFilter().filter(DataFactory.DATA_TYPE_TEXT);
 
-            dataAdapter.notifyDataSetChanged();
-
-            listView.invalidate();
-
             return true;
         }
         else if(id==R.id.menu_image)
         {
             dataAdapter.getFilter().filter(DataFactory.DATA_TYPE_IMAGE);
-
-            dataAdapter.notifyDataSetChanged();
-
-            listView.invalidate();
 
             return true;
         }
