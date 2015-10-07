@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ArrayAdapter<DataModel> dataAdapter;
     @Bind(R.id.list_view)ListView listView;
     List<DataModel> list;
-    List<DataModel> textList;
-    List<DataModel> imageList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         requestQueue = Volley.newRequestQueue(this);
